@@ -56,7 +56,36 @@ class Tree {
       return this.find(value, node.left);
     } else return this.find(value, node.right);
   }
-
+  levelOrder(callback) {
+    const queue = [this.root];
+    while (queue.length > 0) {
+      const node = queue.shift();
+      callback(node);
+      if (node.left !== null) queue.push(node.left);
+      if (currentNode.right !== null) queue.push(currentNode.right);
+    }
+  }
+  inOrder(callback, node = this.root) {
+    if (node !== null) {
+      this.inOrder(callback, node.left);
+      callback(node);
+      this.inOrder(callback, node.right);
+    }
+  }
+  preOrder(callback, node = this.root) {
+    if (node !== null) {
+      callback(node);
+      this.preOrder(callback, node.left);
+      this.preOrder(callback, node.right);
+    }
+  }
+  postOrder(callback, node = this.root) {
+    if (node !== null) {
+      this.postOrder(callback, node.left);
+      this.postOrder(callback, node.right);
+      callback(node);
+    }
+  }
   prettyPrint() {
     const prettyPrintHelper = (node, prefix = "", isLeft = true) => {
       if (node === null) {
